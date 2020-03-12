@@ -47,7 +47,6 @@ void Server::initialize(unsigned int board_size,
     if(this->p2_setup_board.good() == false){
         throw invalid_argument("Invalid board for P2");
     }
-    printf("File Length of player1: %d\n", get_file_length(&this->p1_setup_board));
     if(get_file_length(&this->p1_setup_board)/10-1 != board_size){
         throw invalid_argument("Invalid Board Size for player 1.");
     }
