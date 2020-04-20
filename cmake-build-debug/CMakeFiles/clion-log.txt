@@ -1,0 +1,41 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments"
+-- The C compiler identification is GNU 7.4.0
+-- The CXX compiler identification is GNU 7.4.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The ASM_NASM compiler identification is NASM
+-- Found assembler: /usr/bin/nasm
+-- Found PythonInterp: /usr/bin/python (found version "2.7.17") 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/src/player_1.setup_board.txt to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/src/player_2.setup_board.txt to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/player_1.setup_board.txt to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/player_2.setup_board.txt to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_start_action_board.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_fire_message.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_hit_action_board.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_miss_action_board.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_hit_result.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_miss_result.json to Unix format...
+dos2unix: converting file /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug/test/correct_out_of_bounds_result.json to Unix format...
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/Users/Brady Cornett/CLionProjects/CSCI_366_Programming_Assignments/cmake-build-debug
