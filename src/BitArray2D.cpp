@@ -18,18 +18,24 @@
 #include "BitArray2D.hpp"
 
 BitArray2D::BitArray2D(unsigned int rows, unsigned int columns) {
-
+    if(rows < 1 or columns < 1){
+        throw BitArray2DException("Invalid Board");
+    }else{
+        this->columns = columns;
+        this->rows = rows;
+        array = (char*)calloc(rows*columns, sizeof(char));
+    }
 }
 
 
-BitArray2D::~BitArray2D() {
-
-}
+BitArray2D::~BitArray2D() {}
 
 
 bool BitArray2D::get(unsigned int row, unsigned int column){
    // check array bounds
-
+   if (row < 0 or column < 0 or row >= this->rows or column >= this->columns){
+       throw BitArray2DException("Invalid Range");
+   }
    // get the element
    return get_bit_elem(array, columns, row, column);
 }
@@ -38,7 +44,9 @@ bool BitArray2D::get(unsigned int row, unsigned int column){
 
 void BitArray2D::set(unsigned int row, unsigned int column){
    // check array bounds
-
+    if (row >= this->rows or row < 0 or column >= this->columns or column < 0) {
+        throw BitArray2DException("Invalid range");
+    }
    // set the element
    set_bit_elem(array, columns, row, column);
 }

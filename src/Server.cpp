@@ -26,26 +26,108 @@
  * @return length of the file in bytes
  */
 int get_file_length(ifstream *file){
+    file->seekg(0, ios::end);
+    int length = file->tellg();
+    file->seekg(0, ios::beg);
+    return length;
 }
 
 
 void Server::initialize(unsigned int board_size,
                         string p1_setup_board,
-                        string p2_setup_board){
-}
+                        string p2_setup_board) {
+    this->board_size = board_size;
+    ifstream p1_setup_board_temp(p1_setup_board);
+    ifstream p2_setup_board_temp(p2_setup_board);
+    if (p1_setup_board_temp.good() == false) {
+        throw invalid_argument("Invalid board for P1");
+    }
+    if (p2_setup_board_temp.good() == false) {
+        throw invalid_argument("Invalid board for P2");
+    }
+    if (get_file_length(&p1_setup_board_temp) / 10 - 1 != board_size) {
+        throw invalid_argument("Invalid Board Size for player 1.");
+    }
+    if (get_file_length(&p2_setup_board_temp) / 10 - 1 != board_size) {
+        throw invalid_argument("Invalid Board Size for player 2.");
+    }
 
+    //“The road goes ever on and on” ― J.R.R. Tolkien, The Hobbit, or There and Back Again.. This is where it alllll starts
+    this -> p1_setup_board = scan_setup_board(p1_setup_board);
+    this -> p2_setup_board = scan_setup_board(p2_setup_board);
+}
 
 Server::~Server() {
 }
 
-
-BitArray2D *Server::scan_setup_board(string setup_board_name){
+BitArray2D *Server::scan_setup_board(string setup_board_name) {
+    vector< vector < char > > player_setup_board_vecs;
+    std::string str;
+    BitArray2D *tempBitArray = nullptr;
+    tempBitArray = new BitArray2D(this->board_size, this->board_size);
+    ifstream player_setup_board_temp(setup_board_name);
+    while (std::getline(player_setup_board_temp, str)) {
+        vector<char> line;
+        for (int i = 0; i < str.length(); i++) {
+            line.push_back(str[i]);
+        }
+        player_setup_board_vecs.push_back(line);
+    }
+    for (int i = 0; i < board_size; i++) {
+        for (int j = 0; j < board_size; j++) {
+            if(player_setup_board_vecs[i][j] != '_'){
+                tempBitArray->set(i, j);
+            }
+        }
+    }
+    return tempBitArray;
 }
 
 int Server::evaluate_shot(unsigned int player, unsigned int x, unsigned int y) {
+    if(player > 2 or player < 1){
+        throw invalid_argument("Invalid player Number");
+    }
+    if(x > this->board_size-1 || x < 0){
+        return OUT_OF_BOUNDS;
+    }
+    else if( y > this->board_size-1 || y < 0){
+        return OUT_OF_BOUNDS;
+    }else{
+        if (player == 1) {
+            if(p2_setup_board->get(y, x) == false){
+               return MISS;
+            }else{
+               return HIT;
+            }
+        }else{
+            if(p1_setup_board->get(y,x) == false){
+               return MISS;
+            }else{
+               return HIT;
+            }
+        }
+    }
 }
 
-
 int Server::process_shot(unsigned int player) {
-   return NO_SHOT_FILE;
+    if(player > 2 or player < 1){
+        throw invalid_argument("Invalid player number");
+    }
+    string fileToRead = "player_"+to_string(player)+".shot.json";
+    string fileToWrite = "player_"+to_string(player)+".result.json";
+    int x, y, result;
+    ifstream ifp(fileToRead);
+    if(ifp.good()) {
+        cereal::JSONInputArchive read_archive(ifp);
+        read_archive(x, y);
+        ifp.close();
+        remove(fileToRead.c_str());
+        result = evaluate_shot(player, x, y);
+        ofstream ofp(fileToWrite);
+        cereal::JSONOutputArchive write_archive(ofp);
+        write_archive(cereal::make_nvp("result", result));
+        return SHOT_FILE_PROCESSED;
+    }else {
+        return NO_SHOT_FILE;
+    }
 }
